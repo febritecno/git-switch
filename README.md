@@ -6,6 +6,10 @@ Switch between Git + SSH identities (e.g. `personal` / `work`) with one command.
 entry in `~/.ssh/config` at the selected account's SSH key. Accounts are stored
 in `~/.git-accounts.json`.
 
+> [!IMPORTANT]
+> `gs` hanya bekerja lewat jalur SSH, bukan HTTPS. Pastikan remote memakai
+> format SSH (`git@github.com:...`), bukan `https://github.com/...`.
+
 ## Requirements
 
 - macOS or Linux
