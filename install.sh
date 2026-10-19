@@ -1,22 +1,37 @@
 #!/usr/bin/env bash
-# Install gs (and its git-acc alias) by symlinking into a bin directory.
-# usage: ./install.sh            # installs to ~/.local/bin
-#        PREFIX=/usr/local/bin ./install.sh
+# Install gs (and its git-acc alias) into a bin directory.
+#
+# From a release (no clone needed):
+#   curl -fsSL https://github.com/febritecno/git-switch/releases/latest/download/install.sh | bash
+# From a clone (symlinks to the cloned script):
+#   ./install.sh
+# Custom location:
+#   PREFIX=/usr/local/bin ./install.sh
 set -euo pipefail
 
-SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/gs"
+REPO="febritecno/git-switch"
 PREFIX="${PREFIX:-$HOME/.local/bin}"
+LOCAL="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd)/gs"
 
 for dep in zsh node git ssh-keygen; do
   command -v "$dep" >/dev/null 2>&1 || { echo "Missing dependency: $dep" >&2; exit 1; }
 done
-[[ -f "$SRC" ]] || { echo "gs script not found at $SRC" >&2; exit 1; }
 
-chmod +x "$SRC"
 mkdir -p "$PREFIX"
-ln -sf "$SRC" "$PREFIX/gs"
-ln -sf "$SRC" "$PREFIX/git-acc"
-echo "Installed: $PREFIX/gs, $PREFIX/git-acc -> $SRC"
+
+if [[ -f "$LOCAL" ]]; then
+  chmod +x "$LOCAL"
+  ln -sf "$LOCAL" "$PREFIX/gs"
+  echo "Installed (symlink): $PREFIX/gs -> $LOCAL"
+else
+  command -v curl >/dev/null 2>&1 || { echo "Missing dependency: curl" >&2; exit 1; }
+  rm -f "$PREFIX/gs"
+  curl -fsSL "https://github.com/$REPO/releases/latest/download/gs" -o "$PREFIX/gs"
+  chmod +x "$PREFIX/gs"
+  echo "Installed (release): $PREFIX/gs"
+fi
+ln -sf "$PREFIX/gs" "$PREFIX/git-acc"
+echo "Alias: $PREFIX/git-acc"
 
 case ":$PATH:" in
   *":$PREFIX:"*) ;;

@@ -18,16 +18,14 @@ in `~/.git-accounts.json`.
 ## Install
 
 ```bash
-git clone <repo-url> gs
-cd gs
-bash install.sh
+curl -fsSL https://github.com/febritecno/git-switch/releases/latest/download/install.sh | bash
 ```
 
-This symlinks `gs` and `git-acc` (an alias for the same script) into
-`~/.local/bin`. To install somewhere else:
+This downloads `gs` from the latest release into `~/.local/bin` and adds
+`git-acc` (an alias for the same script). To install somewhere else:
 
 ```bash
-PREFIX=/usr/local/bin bash install.sh
+curl -fsSL https://github.com/febritecno/git-switch/releases/latest/download/install.sh | PREFIX=/usr/local/bin bash
 ```
 
 If the install directory is not in your `PATH`, add it:
@@ -42,8 +40,7 @@ Verify:
 gs help
 ```
 
-Because the install is a symlink, keep the cloned folder in place; `git pull`
-updates the command.
+Update: run the install command again.
 
 ## Usage
 
