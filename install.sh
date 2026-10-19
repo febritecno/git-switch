@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Install gs (and its git-acc alias) into a bin directory.
 #
-# From a release (no clone needed):
-#   curl -fsSL https://github.com/febritecno/git-switch/releases/latest/download/install.sh | bash
+# One command (no clone needed):
+#   curl -fsSL https://raw.githubusercontent.com/febritecno/git-switch/main/install.sh | bash
 # From a clone (symlinks to the cloned script):
 #   ./install.sh
 # Custom location:
@@ -26,9 +26,9 @@ if [[ -f "$LOCAL" ]]; then
 else
   command -v curl >/dev/null 2>&1 || { echo "Missing dependency: curl" >&2; exit 1; }
   rm -f "$PREFIX/gs"
-  curl -fsSL "https://github.com/$REPO/releases/latest/download/gs" -o "$PREFIX/gs"
+  curl -fsSL "https://raw.githubusercontent.com/$REPO/main/gs" -o "$PREFIX/gs"
   chmod +x "$PREFIX/gs"
-  echo "Installed (release): $PREFIX/gs"
+  echo "Installed: $PREFIX/gs"
 fi
 ln -sf "$PREFIX/gs" "$PREFIX/git-acc"
 echo "Alias: $PREFIX/git-acc"

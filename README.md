@@ -18,29 +18,20 @@ in `~/.git-accounts.json`.
 ## Install
 
 ```bash
-curl -fsSL https://github.com/febritecno/git-switch/releases/latest/download/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/febritecno/git-switch/main/install.sh | bash
 ```
 
-This downloads `gs` from the latest release into `~/.local/bin` and adds
-`git-acc` (an alias for the same script). To install somewhere else:
+Done. Installs `gs` (and alias `git-acc`) to `~/.local/bin`. Run it again to
+update. Check with `gs help`.
 
-```bash
-curl -fsSL https://github.com/febritecno/git-switch/releases/latest/download/install.sh | PREFIX=/usr/local/bin bash
-```
-
-If the install directory is not in your `PATH`, add it:
+If `gs` is not found, add the bin directory to your `PATH`:
 
 ```bash
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 ```
 
-Verify:
-
-```bash
-gs help
-```
-
-Update: run the install command again.
+Custom location: prefix the command with `PREFIX=/usr/local/bin` after the
+pipe, i.e. `... | PREFIX=/usr/local/bin bash`.
 
 ## Usage
 
